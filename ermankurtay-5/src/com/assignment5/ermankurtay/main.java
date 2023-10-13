@@ -34,7 +34,7 @@ public class main {
 		
 		System.out.println(obj.get(1));
 		
-		System.out.println(obj.get(9));
+		System.out.println(obj.get(10));
 		
 		System.out.println(obj.getSize());
 
