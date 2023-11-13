@@ -1,32 +1,44 @@
 package com.assignment5.ermankurtay;
 
-import java.util.ArrayList;
-
 public class CustomArrayList<T> implements CustomList<T> {
 
-    private ArrayList<T> items = new ArrayList<>();
+    private Object[] items;
+    private int size;
 
-    
+    public CustomArrayList() {
+        this.items = new Object[1]; 
+        this.size = 0;
+    }
+
     @Override
     public boolean add(T item) {
-        if (items.add(item)) {
-            return true; // Item was added successfully.
-        } else {
-            return false; // Item was not added.
+        if (size == items.length) {
+            Object[] newArray = new Object[items.length * 2];
+
+            for (int i = 0; i < size; i++) {
+                newArray[i] = items[i];
+            }
+
+            items = newArray;
         }
+
+        items[size++] = item;
+
+        return true;
     }
 
     @Override
     public int getSize() {
-        return items.size(); 
+        return size;
     }
 
     @Override
     public T get(int index) {
-        if (index >= 0 && index < items.size()) {
-            return items.get(index); 
+        if (index >= 0 && index < size) {
+            T result = (T) items[index];
+            return result;
         } else {
-            return null; 
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
     }
 }

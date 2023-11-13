@@ -28,13 +28,23 @@ public class main {
 		obj.add(50);
 
 		obj.add(55);
+		
+		obj.add(60);
+
+		obj.add(65);
+		
+		obj.add(70);
+		
+		obj.add(75);
+		
+		obj.add(80);
 
 		
 		System.out.println(obj.get(0));
 		
 		System.out.println(obj.get(1));
 		
-		System.out.println(obj.get(10));
+		System.out.println(obj.get(11));
 		
 		System.out.println(obj.getSize());
 
