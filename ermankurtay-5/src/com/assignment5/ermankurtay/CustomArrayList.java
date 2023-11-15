@@ -38,7 +38,7 @@ public class CustomArrayList<T> implements CustomList<T> {
             T result = (T) items[index];
             return result;
         } else {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+            throw new IndexOutOfBoundsException();
         }
     }
 }
