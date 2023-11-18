@@ -7,48 +7,37 @@ public class main {
 		
 		CustomArrayList<Integer> obj = new CustomArrayList<Integer>();
 		
+
+	
+		obj.add(1);
+		obj.add(2);
+		obj.add(3);
+		obj.add(4);
 		obj.add(5);
-		
+		obj.add(6);
+		obj.add(7);
+		obj.add(8);
+		obj.add(9);
 		obj.add(10);
-		
-		obj.add(15);
+		obj.add(11);
 
-		obj.add(20);
 
-		obj.add(25);
-
-		obj.add(30);
-
-		obj.add(35);
-
-		obj.add(40);
-
-		obj.add(45);
-
-		obj.add(50);
-
-		obj.add(55);
-		
-		obj.add(60);
-
-		obj.add(65);
-		
-		obj.add(70);
-		
-		obj.add(75);
-		
-		obj.add(80);
 
 		
-		System.out.println(obj.get(0));
+
+
+
 		
-		System.out.println(obj.get(1));
-		
-		System.out.println(obj.get(11));
-		
+
+		for(int x=0;x < obj.getSize();x++) {
+			
+			System.out.println(obj.get(x));
+		}
 		System.out.println(obj.getSize());
 
+		}
+		
 
 	}
 
-}
+
