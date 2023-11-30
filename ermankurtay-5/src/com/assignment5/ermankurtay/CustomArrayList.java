@@ -1,60 +1,80 @@
 package com.assignment5.ermankurtay;
 
+import java.awt.desktop.SystemSleepEvent;
 import java.util.Arrays;
 
 public class CustomArrayList<T> implements CustomList<T> {
 
-    private Object[] items;
-    private int size;
+    private Object[] items = new Object[10];
+    private int size = 0;
         
-    public CustomArrayList() {
-        this.items = new Object[10];
-        this.size = 0;
-        
-    }
+//    public CustomArrayList() {
+//        this.items = new Object[10];
+//        this.size = 0;
+//        
+//    }
 
     @Override
     public boolean add(T item) {
+    	
+    	int newSize = size;
+    	
+    	size++;
        
+    	
+//    	System.out.println("size: " + size);
+//    	
+//    	System.out.println("length: " + items.length);
 
-        items[size] = item;
+    	if(size == items.length) {
+    	
+    		newSize = items.length * 2;
+    		
+    	}
+    	
+    	 if(newSize > items.length  && items !=null) {
+         	
+         	items = Arrays.copyOf(items, items.length * 2);
+         	
+            items[size] = item;
+
+         	return true;
+         	
+         }
+    	
+    	         
+        else {
+        
+            items[size] = item;
+
+        }
+
         if(item == null) {
         	
         	return false;
         }
-        if(item != null) {
-        	
-        	size++;
-        }
-        if(size == items.length && items !=null) {
-        	
-        	Object[] newArr = Arrays.copyOf(items, items.length * 2);
-        	
-        	items = newArr;
-        }
+        
+        
+        
         return true;
     }
 
 
 
 
-
-
-
-
-
     @Override
     public int getSize() {
-int count =0;
-for(int i=0; i < items.length; i++) {
-	
-	if (items[i] != null){
-		
-		count ++;
-	}
+    
+//    	int count =0;
+//		for(int i=0; i < items.length; i++) {
+//	
+//		if (items[i] != null){
+//		
+//		count ++;
+//	}
+
+			return items.length;
 }
-return size;
-    }
 
     @Override
     public T get(int index) {
