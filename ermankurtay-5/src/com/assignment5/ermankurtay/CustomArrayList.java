@@ -1,6 +1,5 @@
 package com.assignment5.ermankurtay;
 
-import java.awt.desktop.SystemSleepEvent;
 import java.util.Arrays;
 
 public class CustomArrayList<T> implements CustomList<T> {
