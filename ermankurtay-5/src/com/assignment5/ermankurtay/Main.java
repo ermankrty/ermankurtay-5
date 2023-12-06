@@ -29,10 +29,10 @@ public class Main {
 
 		
 
-//		for(int x=0;x < obj.getSize();x++) {
-//			
-//			System.out.println(obj.get(x));
-//		}
+		for(int x=0;x < obj.getSize();x++) {
+			
+			System.out.println(obj.get(x));
+		}
 		
 		System.out.println(obj.getSize());
 
