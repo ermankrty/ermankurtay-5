@@ -1,0 +1,50 @@
+name: "Test junit-platform-native"
+
+on:
+  push:
+    paths:
+      - 'common/junit-platform-native/**'
+      - '.github/actions/**'
+      - '.github/workflows/test-junit-platform-native.yml'
+      - 'gradle/libs.versions.toml'
+  pull_request:
+    paths:
+      - 'common/junit-platform-native/**'
+      - '.github/actions/**'
+      - '.github/workflows/test-junit-platform-native.yml'
+      - 'gradle/libs.versions.toml'
+  workflow_dispatch:
+
+concurrency:
+  group: "workflow = ${{ github.workflow }}, ref = ${{ github.event.ref }}, pr = ${{ github.event.pull_request.id }}"
+  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.repository != 'graalvm/native-build-tools' }}
+
+jobs:
+  test-junit-platform-native:
+    name: "Test junit-platform-native"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        java-version: [ 17 ]
+        os: [ ubuntu-20.04 ]
+    steps:
+      - name: "☁️ Checkout repository"
+        uses: actions/checkout@v4
+      - name: "🔧 Prepare environment"
+        uses: ./.github/actions/prepare-environment
+        with:
+          java-version: ${{ matrix.java-version }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: "❓ Checkstyle"
+        run: ./gradlew :junit-platform-native:checkstyleMain :junit-platform-native:checkstyleTest
+      - name: "❓ Hotspot test"
+        run: ./gradlew :junit-platform-native:test
+      - name: "❓ Native test"
+        run: ./gradlew :junit-platform-native:nativeTest
+      - name: "📜 Upload tests results"
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: tests-results
+          path: common/junit-platform-native/build/reports/tests/

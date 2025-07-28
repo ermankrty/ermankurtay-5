@@ -1,0 +1,70 @@
+name: "Test native-maven-plugin"
+
+on:
+  push:
+    paths:
+      - 'native-maven-plugin/**'
+      - 'samples/**'
+      - 'common/**'
+      - '.github/actions/**'
+      - '.github/workflows/test-native-maven-plugin.yml'
+      - 'gradle/libs.versions.toml'
+  pull_request:
+    paths:
+      - 'native-maven-plugin/**'
+      - 'samples/**'
+      - 'common/**'
+      - '.github/actions/**'
+      - '.github/workflows/test-native-maven-plugin.yml'
+      - 'gradle/libs.versions.toml'
+  workflow_dispatch:
+
+concurrency:
+  group: "workflow = ${{ github.workflow }}, ref = ${{ github.event.ref }}, pr = ${{ github.event.pull_request.id }}"
+  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.repository != 'graalvm/native-build-tools' }}
+
+jobs:
+  populate-matrix:
+    name: "Set matrix"
+    runs-on: "ubuntu-20.04"
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: "☁️ Checkout repository"
+        uses: actions/checkout@v3
+      - name: "🔧 Prepare environment"
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '17'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: "🕸️ Populate matrix"
+        id: set-matrix
+        run: |
+          ./gradlew -PmatrixType=maven :native-maven-plugin:dumpFunctionalTestList
+
+  test-native-maven-plugin:
+    name: "🧪 Maven: ${{ matrix.test }} on ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    needs: populate-matrix
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJson(needs.populate-matrix.outputs.matrix)}}
+    steps:
+      - name: "☁️ Checkout repository"
+        uses: actions/checkout@v4
+      - name: "🔧 Prepare environment"
+        uses: ./.github/actions/prepare-environment
+        with:
+          java-version: ${{ matrix.java-version }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: "❓ Check and test the plugin"
+        run: ./gradlew :native-maven-plugin:functionalTest --no-daemon --fail-fast --tests ${{ matrix.test }}
+      - name: "📜 Upload unit test results"
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: maven-functional-tests-results-${{ matrix.os }}
+          path: native-maven-plugin/build/reports/tests/

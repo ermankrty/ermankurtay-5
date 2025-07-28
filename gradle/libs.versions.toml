@@ -1,0 +1,68 @@
+[versions]
+# Project versions
+nativeBuildTools = "0.10.5-SNAPSHOT"
+metadataRepository = "0.3.14"
+
+# External dependencies
+spock = "2.1-groovy-3.0"
+maven = "3.8.6"
+mavenAnnotations = "3.6.4"
+mavenEmbedder = "3.8.6"
+mavenWagon = "3.4.3"
+graalvm = "23.0.2"
+jackson = "2.13.5"
+junitPlatform = "1.10.0"
+junitJupiter = "5.10.0"
+aether = "1.1.0"
+slf4j = "1.7.9"
+groovy = "3.0.11"
+jetty = "11.0.11"
+plexusUtils = "4.0.0"
+plexusXml = "4.0.2"
+cyclonedxMaven = "2.8.1"
+pluginExecutorMaven = "2.4.0"
+
+[libraries]
+# Local projects
+nativeGradlePlugin = { module = "org.graalvm.buildtools:native-gradle-plugin", version.ref = "nativeBuildTools" }
+nativeMavenPlugin = { module = "org.graalvm.buildtools:native-maven-plugin", version.ref = "nativeBuildTools" }
+junitPlatformNative = { module = "org.graalvm.buildtools:junit-platform-native", version.ref = "nativeBuildTools" }
+utils = { module = "org.graalvm.buildtools:utils", version.ref = "nativeBuildTools" }
+jvmReachabilityMetadata = { module = "org.graalvm.buildtools:graalvm-reachability-metadata", version.ref = "nativeBuildTools" }
+
+# External dependencies
+test-junit-platform-console = { module = "org.junit.platform:junit-platform-console", version.ref = "junitPlatform" }
+test-junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatform" }
+test-junit-bom = { module = "org.junit:junit-bom", version.ref = "junitJupiter" }
+test-junit-jupiter-core = { module = "org.junit.jupiter:junit-jupiter", version = "" }
+test-junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version = "" }
+test-junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version = "" }
+test-junit-vintage = { module = "org.junit.vintage:junit-vintage-engine", version = "" }
+test-spock = { module = "org.spockframework:spock-core", version.ref = "spock" }
+
+graalvm-svm = { module = "org.graalvm.nativeimage:svm", version.ref = "graalvm" }
+
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+
+maven-pluginApi = { module = "org.apache.maven:maven-plugin-api", version.ref = "maven" }
+maven-pluginAnnotations = { module = "org.apache.maven.plugin-tools:maven-plugin-annotations", version.ref = "mavenAnnotations" }
+maven-core = { module = "org.apache.maven:maven-core", version.ref = "maven" }
+maven-artifact = { module = "org.apache.maven:maven-artifact", version.ref = "maven" }
+maven-compat = { module = "org.apache.maven:maven-compat", version.ref = "maven" }
+maven-embedder = { module = "org.apache.maven:maven-embedder", version.ref = "mavenEmbedder" }
+maven-aether-connector = { module = "org.eclipse.aether:aether-connector-basic", version.ref = "aether" }
+maven-aether-wagon = { module = "org.eclipse.aether:aether-transport-wagon", version.ref = "aether" }
+maven-wagon-file = { module = "org.apache.maven.wagon:wagon-file", version.ref = "mavenWagon" }
+maven-wagon-http = { module = "org.apache.maven.wagon:wagon-http", version.ref = "mavenWagon" }
+maven-wagon-provider = { module = "org.apache.maven.wagon:wagon-provider-api", version.ref = "mavenWagon" }
+
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
+
+jetty-server = { module = "org.eclipse.jetty:jetty-server", version.ref = "jetty" }
+
+plexus-utils = { module = "org.codehaus.plexus:plexus-utils", version.ref = "plexusUtils" }
+
+plexus-xml = { module = "org.codehaus.plexus:plexus-xml", version.ref = "plexusXml" }
+
+cyclonedx-maven-plugin = { module = "org.cyclonedx:cyclonedx-maven-plugin", version.ref="cyclonedxMaven" }
+plugin-executor-maven = { module = "org.twdata.maven:mojo-executor", version.ref="pluginExecutorMaven" }
